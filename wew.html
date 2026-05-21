@@ -1,0 +1,586 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:var(--font-sans);}
+.outer{display:flex;flex-direction:column;align-items:center;padding:1rem 0 2rem;}
+.screen-nav{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin-bottom:14px;max-width:360px;}
+.sn-btn{font-size:10px;padding:4px 10px;border-radius:999px;border:0.5px solid var(--color-border-tertiary);background:var(--color-background-primary);color:var(--color-text-secondary);cursor:pointer;white-space:nowrap;}
+.sn-btn.on{background:#2D5A1B;color:#fff;border-color:#2D5A1B;}
+.phone{width:340px;border-radius:40px;border:7px solid #1A1A18;background:#F0EBE1;overflow:hidden;}
+.screen{display:none;flex-direction:column;min-height:620px;background:#F0EBE1;}
+.screen.active{display:flex;}
+
+/* tokens */
+.g{color:#2D5A1B;}.ag{color:#C4680A;}.mg{color:#6B6558;}.hg{color:#9A9080;}
+.bg-g{background:#2D5A1B;}.bg-lg{background:#EAF3DC;}.bg-am{background:#FEF0E0;}.bg-w{background:#fff;}
+.tag{display:inline-block;padding:3px 9px;border-radius:999px;font-size:10px;font-weight:500;}
+.tag-am{background:#FEF0E0;color:#C4680A;}.tag-g{background:#EAF3DC;color:#2D5A1B;}
+.tag-gray{background:#F0EBE1;color:#6B6558;border:0.5px solid #DDD5C4;}
+.card{background:#fff;border:0.5px solid #DDD5C4;border-radius:12px;}
+.btn-solid{background:#2D5A1B;border:none;border-radius:10px;padding:12px;font-size:13px;font-weight:500;color:#fff;cursor:pointer;width:100%;display:flex;align-items:center;justify-content:center;gap:6px;}
+.btn-outline{background:#fff;border:1px solid #C8C0B0;border-radius:10px;padding:11px;font-size:13px;font-weight:500;color:#1C2B0F;cursor:pointer;width:100%;display:flex;align-items:center;justify-content:center;gap:6px;}
+.btn-solid i,.btn-outline i{font-size:14px;}
+
+/* topbar */
+.topbar{background:#F0EBE1;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:0.5px solid #DDD5C4;}
+.topbar-title{font-size:14px;font-weight:500;color:#1C2B0F;}
+.back{background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;}
+.back i{font-size:17px;color:#1C2B0F;}
+
+/* nav */
+.nav{background:#fff;border-top:0.5px solid #DDD5C4;display:flex;justify-content:space-around;padding:8px 0 12px;}
+.ni{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;border:none;background:none;padding:2px 10px;}
+.ni i{font-size:18px;color:#9A9080;}.ni span{font-size:9px;color:#9A9080;}
+.ni.on i,.ni.on span{color:#2D5A1B;font-weight:500;}
+
+/* shared section */
+.sec{padding:12px 14px 0;}
+.sec-t{font-size:12px;font-weight:500;color:#1C2B0F;margin-bottom:8px;}
+.divider{border:none;border-top:0.5px solid #DDD5C4;margin:10px 0;}
+
+/* input */
+.field{margin-bottom:10px;}
+.field label{font-size:11px;font-weight:500;color:#6B6558;display:block;margin-bottom:4px;}
+.field input,.field select,.field textarea{width:100%;background:#fff;border:0.5px solid #DDD5C4;border-radius:8px;padding:9px 11px;font-size:12px;color:#1C2B0F;font-family:var(--font-sans);outline:none;}
+.field textarea{resize:none;height:60px;line-height:1.5;}
+.field input:focus,.field select:focus{border-color:#2D5A1B;}
+
+/* hero variant */
+.hero-sm{background:#2D5A1B;padding:16px;margin:12px;border-radius:14px;}
+.hero-sm-h{font-size:16px;font-weight:500;color:#fff;margin-bottom:3px;}
+.hero-sm-s{font-size:11px;color:#B0D090;line-height:1.4;}
+</style>
+
+<h2 class="sr-only">EcoPack Urdaneta — 8 additional mobile screen mockups: checkout, about, FAQ, starter kit, my orders, chat inquiry, custom stamping, and eco info.</h2>
+
+<div class="outer">
+<div class="screen-nav" id="snav">
+  <button class="sn-btn on" onclick="go('checkout')">Checkout</button>
+  <button class="sn-btn" onclick="go('about')">About</button>
+  <button class="sn-btn" onclick="go('faq')">FAQ / Learn</button>
+  <button class="sn-btn" onclick="go('starter')">Starter kit</button>
+  <button class="sn-btn" onclick="go('orders')">My orders</button>
+  <button class="sn-btn" onclick="go('chat')">Chat / Inquiry</button>
+  <button class="sn-btn" onclick="go('stamp')">Custom stamping</button>
+  <button class="sn-btn" onclick="go('ecoinfo')">Eco info</button>
+</div>
+
+<div class="phone">
+
+  <!-- CHECKOUT -->
+  <div class="screen active" id="s-checkout">
+    <div class="topbar">
+      <button class="back"><i class="ti ti-arrow-left" aria-hidden="true"></i></button>
+      <span class="topbar-title">Checkout</span>
+      <span></span>
+    </div>
+    <div style="padding:12px 14px;flex:1;overflow:hidden;">
+      <div class="sec-t">Delivery method</div>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:12px;">
+        <div id="del-campus" onclick="selDel('campus')" style="background:#fff;border:1.5px solid #2D5A1B;border-radius:10px;padding:10px;cursor:pointer;text-align:center;">
+          <i class="ti ti-map-pin" aria-hidden="true" style="font-size:20px;color:#2D5A1B;display:block;margin-bottom:4px;"></i>
+          <div style="font-size:11px;font-weight:500;color:#1C2B0F;">Campus pickup</div>
+          <div style="font-size:10px;color:#2D5A1B;margin-top:2px;font-weight:500;">Free</div>
+          <div style="font-size:9px;color:#9A9080;margin-top:1px;">Tomorrow 4 PM</div>
+        </div>
+        <div id="del-rider" onclick="selDel('rider')" style="background:#fff;border:0.5px solid #DDD5C4;border-radius:10px;padding:10px;cursor:pointer;text-align:center;">
+          <i class="ti ti-motorbike" aria-hidden="true" style="font-size:20px;color:#9A9080;display:block;margin-bottom:4px;"></i>
+          <div style="font-size:11px;font-weight:500;color:#1C2B0F;">Local delivery</div>
+          <div style="font-size:10px;color:#C4680A;margin-top:2px;font-weight:500;">₱40–50</div>
+          <div style="font-size:9px;color:#9A9080;margin-top:1px;">Same day</div>
+        </div>
+      </div>
+
+      <div id="campus-info" style="background:#EAF3DC;border-radius:10px;padding:10px 12px;margin-bottom:12px;display:flex;gap:8px;align-items:flex-start;">
+        <i class="ti ti-info-circle" aria-hidden="true" style="font-size:15px;color:#2D5A1B;margin-top:1px;flex-shrink:0;"></i>
+        <div style="font-size:11px;color:#2D5A1B;line-height:1.5;">Pickup at <strong style="font-weight:500;">PSU-Urdaneta Main Gate</strong> daily 4–5 PM. We'll message you on Facebook when your order is ready.</div>
+      </div>
+      <div id="rider-info" style="display:none;background:#FEF0E0;border-radius:10px;padding:10px 12px;margin-bottom:12px;">
+        <div class="field" style="margin-bottom:6px;"><label>Delivery address</label><input type="text" placeholder="Street, barangay, city…"></div>
+        <div class="field" style="margin-bottom:0;"><label>Contact number</label><input type="text" placeholder="09xx xxx xxxx"></div>
+      </div>
+
+      <div class="sec-t">Payment method</div>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;">
+        <div id="pay-gcash" onclick="selPay('gcash')" style="background:#fff;border:1.5px solid #2D5A1B;border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;">
+          <div style="width:32px;height:32px;background:#EAF3DC;border-radius:8px;display:flex;align-items:center;justify-content:center;"><i class="ti ti-device-mobile" aria-hidden="true" style="font-size:16px;color:#2D5A1B;"></i></div>
+          <div style="flex:1;"><div style="font-size:12px;font-weight:500;color:#1C2B0F;">GCash</div><div style="font-size:10px;color:#9A9080;">Send to 09XX-XXX-XXXX</div></div>
+          <i class="ti ti-circle-check" aria-hidden="true" style="font-size:16px;color:#2D5A1B;" id="chk-gcash"></i>
+        </div>
+        <div id="pay-maya" onclick="selPay('maya')" style="background:#fff;border:0.5px solid #DDD5C4;border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;">
+          <div style="width:32px;height:32px;background:#F0EBE1;border-radius:8px;display:flex;align-items:center;justify-content:center;"><i class="ti ti-device-mobile-dollar" aria-hidden="true" style="font-size:16px;color:#6B6558;"></i></div>
+          <div style="flex:1;"><div style="font-size:12px;font-weight:500;color:#1C2B0F;">Maya</div><div style="font-size:10px;color:#9A9080;">Send to 09XX-XXX-XXXX</div></div>
+          <i class="ti ti-circle" aria-hidden="true" style="font-size:16px;color:#DDD5C4;" id="chk-maya"></i>
+        </div>
+        <div id="pay-cod" onclick="selPay('cod')" style="background:#fff;border:0.5px solid #DDD5C4;border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;">
+          <div style="width:32px;height:32px;background:#F0EBE1;border-radius:8px;display:flex;align-items:center;justify-content:center;"><i class="ti ti-cash" aria-hidden="true" style="font-size:16px;color:#6B6558;"></i></div>
+          <div style="flex:1;"><div style="font-size:12px;font-weight:500;color:#1C2B0F;">Cash on pickup</div><div style="font-size:10px;color:#9A9080;">Pay when you collect</div></div>
+          <i class="ti ti-circle" aria-hidden="true" style="font-size:16px;color:#DDD5C4;" id="chk-cod"></i>
+        </div>
+      </div>
+
+      <div class="card" style="padding:10px 12px;margin-bottom:12px;">
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:#6B6558;padding:3px 0;"><span>2 items</span><span>₱385</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:#6B6558;padding:3px 0;"><span>Delivery</span><span style="color:#2D5A1B;">Free</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:14px;font-weight:500;color:#1C2B0F;padding:6px 0 2px;border-top:0.5px solid #EAE2D4;margin-top:4px;"><span>Total</span><span>₱385</span></div>
+      </div>
+      <button class="btn-solid"><i class="ti ti-check" aria-hidden="true"></i>Confirm order</button>
+    </div>
+    <nav class="nav">
+      <button class="ni"><i class="ti ti-home" aria-hidden="true"></i><span>Home</span></button>
+      <button class="ni"><i class="ti ti-grid" aria-hidden="true"></i><span>Shop</span></button>
+      <button class="ni on"><i class="ti ti-shopping-cart" aria-hidden="true"></i><span>Cart</span></button>
+      <button class="ni"><i class="ti ti-message" aria-hidden="true"></i><span>Chat</span></button>
+    </nav>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="screen" id="s-about">
+    <div class="topbar">
+      <button class="back"><i class="ti ti-arrow-left" aria-hidden="true"></i></button>
+      <span class="topbar-title">About us</span>
+      <span></span>
+    </div>
+    <div style="flex:1;overflow:hidden;">
+      <div style="background:#2D5A1B;padding:20px 16px;margin:12px;border-radius:16px;">
+        <div style="width:44px;height:44px;background:#3D7028;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:10px;"><i class="ti ti-leaf" aria-hidden="true" style="font-size:22px;color:#C0E090;"></i></div>
+        <div style="font-size:17px;font-weight:500;color:#fff;margin-bottom:5px;">EcoPack Urdaneta</div>
+        <div style="font-size:11px;color:#B0D090;line-height:1.5;">A student-led venture from Pangasinan State University, making sustainable packaging accessible to every micro-entrepreneur in Northern Luzon.</div>
+      </div>
+
+      <div style="padding:0 14px;">
+        <div class="sec-t">Our mission</div>
+        <div style="background:#EAF3DC;border-radius:10px;padding:12px;margin-bottom:12px;">
+          <div style="font-size:12px;color:#2D5A1B;line-height:1.7;font-style:italic;">"To democratize access to sustainable packaging for every micro-entrepreneur in Pangasinan, eliminating financial barriers to eco-conscious business practices."</div>
+        </div>
+        <div class="sec-t">The founding team</div>
+        <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:12px;">
+          <div class="card" style="padding:10px 12px;display:flex;gap:10px;align-items:center;">
+            <div style="width:36px;height:36px;border-radius:50%;background:#EAF3DC;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:#2D5A1B;flex-shrink:0;">JL</div>
+            <div>
+              <div style="font-size:12px;font-weight:500;color:#1C2B0F;">Jasmine Angela Lisud</div>
+              <div style="font-size:10px;color:#9A9080;">Chief Operations Officer · Lead Data Analyst</div>
+            </div>
+          </div>
+          <div class="card" style="padding:10px 12px;display:flex;gap:10px;align-items:center;">
+            <div style="width:36px;height:36px;border-radius:50%;background:#EAF3DC;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:#2D5A1B;flex-shrink:0;">AB</div>
+            <div>
+              <div style="font-size:12px;font-weight:500;color:#1C2B0F;">Aeron Mark Berbon</div>
+              <div style="font-size:10px;color:#9A9080;">Chief Marketing Officer · Brand Strategist</div>
+            </div>
+          </div>
+          <div class="card" style="padding:10px 12px;display:flex;gap:10px;align-items:center;">
+            <div style="width:36px;height:36px;border-radius:50%;background:#EAF3DC;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:#2D5A1B;flex-shrink:0;">EN</div>
+            <div>
+              <div style="font-size:12px;font-weight:500;color:#1C2B0F;">Earl Ryan Naniong</div>
+              <div style="font-size:10px;color:#9A9080;">Chief Logistics Officer · Partnership Director</div>
+            </div>
+          </div>
+        </div>
+        <div class="sec-t">Certifications</div>
+        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;">
+          <div style="background:#fff;border:0.5px solid #DDD5C4;border-radius:10px;padding:10px;text-align:center;">
+            <i class="ti ti-certificate" aria-hidden="true" style="font-size:20px;color:#2D5A1B;display:block;margin-bottom:4px;"></i>
+            <div style="font-size:10px;font-weight:500;color:#1C2B0F;">TÜV Austria</div>
+            <div style="font-size:9px;color:#9A9080;margin-top:1px;">OK Compost Home</div>
+          </div>
+          <div style="background:#fff;border:0.5px solid #DDD5C4;border-radius:10px;padding:10px;text-align:center;">
+            <i class="ti ti-trees" aria-hidden="true" style="font-size:20px;color:#2D5A1B;display:block;margin-bottom:4px;"></i>
+            <div style="font-size:10px;font-weight:500;color:#1C2B0F;">FSC Certified</div>
+            <div style="font-size:9px;color:#9A9080;margin-top:1px;">Responsible forests</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <nav class="nav">
+      <button class="ni"><i class="ti ti-home" aria-hidden="true"></i><span>Home</span></button>
+      <button class="ni"><i class="ti ti-grid" aria-hidden="true"></i><span>Shop</span></button>
+      <button class="ni"><i class="ti ti-shopping-cart" aria-hidden="true"></i><span>Cart</span></button>
+      <button class="ni on"><i class="ti ti-message" aria-hidden="true"></i><span>Chat</span></button>
+    </nav>
+  </div>
+
+  <!-- FAQ -->
+  <div class="screen" id="s-faq">
+    <div class="topbar">
+      <button class="back"><i class="ti ti-arrow-left" aria-hidden="true"></i></button>
+      <span class="topbar-title">FAQ & eco info</span>
+      <span></span>
+    </div>
+    <div style="flex:1;padding:12px 14px;overflow:hidden;">
+      <div style="background:#EAF3DC;border-radius:12px;padding:12px;margin-bottom:12px;display:flex;gap:10px;">
+        <i class="ti ti-bulb" aria-hidden="true" style="font-size:18px;color:#2D5A1B;flex-shrink:0;margin-top:1px;"></i>
+        <div style="font-size:11px;color:#2D5A1B;line-height:1.6;">Not all "eco-friendly" packaging is equal. Learn the difference before you buy.</div>
+      </div>
+      <div class="sec-t">Compostable vs biodegradable</div>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:14px;">
+        <div class="card" style="padding:10px;border-top:3px solid #2D5A1B;">
+          <div style="font-size:11px;font-weight:500;color:#2D5A1B;margin-bottom:5px;">Compostable</div>
+          <div style="font-size:10px;color:#6B6558;line-height:1.5;">Breaks into non-toxic biomass within 180 days. Leaves no residue. TÜV Austria certified.</div>
+          <div style="margin-top:6px;"><span class="tag tag-g" style="font-size:9px;">What we sell</span></div>
+        </div>
+        <div class="card" style="padding:10px;border-top:3px solid #C4680A;">
+          <div style="font-size:11px;font-weight:500;color:#C4680A;margin-bottom:5px;">Biodegradable</div>
+          <div style="font-size:10px;color:#6B6558;line-height:1.5;">Can mean plastic that just breaks into microplastics. No standard definition. Often misleading.</div>
+          <div style="margin-top:6px;"><span class="tag tag-am" style="font-size:9px;">Avoid this</span></div>
+        </div>
+      </div>
+      <div class="sec-t">Common questions</div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <div class="card" style="padding:10px 12px;" id="faq1" onclick="toggleFaq(1)">
+          <div style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;">
+            <div style="font-size:11px;font-weight:500;color:#1C2B0F;">Can I compost at home?</div>
+            <i class="ti ti-chevron-down" aria-hidden="true" id="faq1-ic" style="font-size:13px;color:#9A9080;"></i>
+          </div>
+          <div id="faq1-body" style="display:none;font-size:10px;color:#6B6558;margin-top:7px;line-height:1.6;border-top:0.5px solid #EAE2D4;padding-top:7px;">Yes! Our mailers are TÜV Austria OK Compost Home certified, meaning they break down in a backyard compost bin — no industrial facility needed.</div>
+        </div>
+        <div class="card" style="padding:10px 12px;" id="faq2" onclick="toggleFaq(2)">
+          <div style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;">
+            <div style="font-size:11px;font-weight:500;color:#1C2B0F;">What's the minimum order?</div>
+            <i class="ti ti-chevron-down" aria-hidden="true" id="faq2-ic" style="font-size:13px;color:#9A9080;"></i>
+          </div>
+          <div id="faq2-body" style="display:none;font-size:10px;color:#6B6558;margin-top:7px;line-height:1.6;border-top:0.5px solid #EAE2D4;padding-top:7px;">No minimum! Buy as few as 10 pieces. This is the whole point of EcoPack — tingi-style access to certified eco-packaging.</div>
+        </div>
+        <div class="card" style="padding:10px 12px;" id="faq3" onclick="toggleFaq(3)">
+          <div style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;">
+            <div style="font-size:11px;font-weight:500;color:#1C2B0F;">How long until it breaks down?</div>
+            <i class="ti ti-chevron-down" aria-hidden="true" id="faq3-ic" style="font-size:13px;color:#9A9080;"></i>
+          </div>
+          <div id="faq3-body" style="display:none;font-size:10px;color:#6B6558;margin-top:7px;line-height:1.6;border-top:0.5px solid #EAE2D4;padding-top:7px;">Within 180 days in a home compost setup. Leaves zero toxic residue — only CO₂, water, and organic matter.</div>
+        </div>
+        <div class="card" style="padding:10px 12px;" id="faq4" onclick="toggleFaq(4)">
+          <div style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;">
+            <div style="font-size:11px;font-weight:500;color:#1C2B0F;">Are kraft bags waterproof?</div>
+            <i class="ti ti-chevron-down" aria-hidden="true" id="faq4-ic" style="font-size:13px;color:#9A9080;"></i>
+          </div>
+          <div id="faq4-body" style="display:none;font-size:10px;color:#6B6558;margin-top:7px;line-height:1.6;border-top:0.5px solid #EAE2D4;padding-top:7px;">They are moisture-resistant but not fully waterproof. Great for dry goods, apparel, and accessories. For wet or frozen items, use our compostable mailers instead.</div>
+        </div>
+      </div>
+    </div>
+    <nav class="nav">
+      <button class="ni"><i class="ti ti-home" aria-hidden="true"></i><span>Home</span></button>
+      <button class="ni"><i class="ti ti-grid" aria-hidden="true"></i><span>Shop</span></button>
+      <button class="ni"><i class="ti ti-shopping-cart" aria-hidden="true"></i><span>Cart</span></button>
+      <button class="ni on"><i class="ti ti-message" aria-hidden="true"></i><span>Chat</span></button>
+    </nav>
+  </div>
+
+  <!-- STARTER KIT -->
+  <div class="screen" id="s-starter">
+    <div class="topbar">
+      <button class="back"><i class="ti ti-arrow-left" aria-hidden="true"></i></button>
+      <span class="topbar-title">Starter kit</span>
+      <span></span>
+    </div>
+    <div style="flex:1;overflow:hidden;">
+      <div style="background:#FEF0E0;margin:12px;border-radius:16px;padding:18px 16px;display:flex;flex-direction:column;align-items:center;text-align:center;">
+        <div style="width:52px;height:52px;background:#FDDAB0;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:10px;"><i class="ti ti-gift" aria-hidden="true" style="font-size:26px;color:#C4680A;"></i></div>
+        <div style="font-size:9px;font-weight:500;color:#C4680A;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Best value bundle</div>
+        <div style="font-size:18px;font-weight:500;color:#1C2B0F;margin-bottom:4px;">Sustainable Transition Kit</div>
+        <div style="font-size:11px;color:#8A6040;line-height:1.5;">Everything a new eco-seller needs to switch from plastic today.</div>
+      </div>
+      <div style="padding:0 14px;">
+        <div class="sec-t">What's inside</div>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px;">
+          <div style="display:flex;align-items:center;gap:10px;background:#fff;border:0.5px solid #DDD5C4;border-radius:10px;padding:9px 12px;">
+            <div style="width:30px;height:30px;background:#EAF3DC;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="ti ti-mail" aria-hidden="true" style="font-size:15px;color:#2D5A1B;"></i></div>
+            <div style="flex:1;"><div style="font-size:11px;font-weight:500;color:#1C2B0F;">Compostable mailers</div><div style="font-size:10px;color:#9A9080;">5 small + 5 medium pcs</div></div>
+            <span class="tag tag-g" style="font-size:9px;">Included</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;background:#fff;border:0.5px solid #DDD5C4;border-radius:10px;padding:9px 12px;">
+            <div style="width:30px;height:30px;background:#EAF3DC;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="ti ti-circles-relation" aria-hidden="true" style="font-size:15px;color:#2D5A1B;"></i></div>
+            <div style="flex:1;"><div style="font-size:11px;font-weight:500;color:#1C2B0F;">Honeycomb wrap</div><div style="font-size:10px;color:#9A9080;">1 meter roll</div></div>
+            <span class="tag tag-g" style="font-size:9px;">Included</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;background:#fff;border:0.5px solid #DDD5C4;border-radius:10px;padding:9px 12px;">
+            <div style="width:30px;height:30px;background:#EAF3DC;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="ti ti-sticker" aria-hidden="true" style="font-size:15px;color:#2D5A1B;"></i></div>
+            <div style="flex:1;"><div style="font-size:11px;font-weight:500;color:#1C2B0F;">Eco-stickers + paper tape</div><div style="font-size:10px;color:#9A9080;">10 stickers, 1 roll tape</div></div>
+            <span class="tag tag-g" style="font-size:9px;">Included</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;background:#fff;border:0.5px solid #DDD5C4;border-radius:10px;padding:9px 12px;">
+            <div style="width:30px;height:30px;background:#FEF0E0;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="ti ti-certificate" aria-hidden="true" style="font-size:15px;color:#C4680A;"></i></div>
+            <div style="flex:1;"><div style="font-size:11px;font-weight:500;color:#1C2B0F;">Eco-Business Badge (digital)</div><div style="font-size:10px;color:#9A9080;">Post on your socials</div></div>
+            <span class="tag tag-am" style="font-size:9px;">Bonus</span>
+          </div>
+        </div>
+        <div style="background:#EAF3DC;border-radius:10px;padding:10px 12px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div style="font-size:10px;color:#2D5A1B;margin-bottom:2px;">Kit price</div>
+            <div style="font-size:20px;font-weight:500;color:#1C2B0F;">₱250</div>
+            <div style="font-size:10px;color:#5A8A3A;">vs ₱345+ if bought separately</div>
+          </div>
+          <div style="font-size:11px;color:#2D5A1B;font-weight:500;background:#C8E0A8;padding:5px 10px;border-radius:999px;">Save ₱95</div>
+        </div>
+        <button class="btn-solid"><i class="ti ti-shopping-cart" aria-hidden="true"></i>Add to cart · ₱250</button>
+      </div>
+    </div>
+    <nav class="nav">
+      <button class="ni"><i class="ti ti-home" aria-hidden="true"></i><span>Home</span></button>
+      <button class="ni on"><i class="ti ti-grid" aria-hidden="true"></i><span>Shop</span></button>
+      <button class="ni"><i class="ti ti-shopping-cart" aria-hidden="true"></i><span>Cart</span></button>
+      <button class="ni"><i class="ti ti-message" aria-hidden="true"></i><span>Chat</span></button>
+    </nav>
+  </div>
+
+  <!-- MY ORDERS -->
+  <div class="screen" id="s-orders">
+    <div class="topbar">
+      <button class="back"><i class="ti ti-arrow-left" aria-hidden="true"></i></button>
+      <span class="topbar-title">My orders</span>
+      <span></span>
+    </div>
+    <div style="flex:1;padding:10px 14px;overflow:hidden;">
+      <div style="display:flex;gap:6px;margin-bottom:10px;">
+        <span class="tag" style="background:#2D5A1B;color:#fff;padding:4px 12px;cursor:pointer;">All</span>
+        <span class="tag tag-gray" style="padding:4px 12px;cursor:pointer;">Active</span>
+        <span class="tag tag-gray" style="padding:4px 12px;cursor:pointer;">Completed</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div class="card" style="padding:11px 12px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+            <div><div style="font-size:12px;font-weight:500;color:#1C2B0F;">Order #ECO-2025-042</div><div style="font-size:10px;color:#9A9080;margin-top:1px;">May 14, 2025</div></div>
+            <span class="tag" style="background:#EAF3DC;color:#2D5A1B;font-size:9px;">Ready for pickup</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:3px;margin-bottom:9px;">
+            <div style="font-size:11px;color:#6B6558;">· Medium mailer, 25 pcs</div>
+            <div style="font-size:11px;color:#6B6558;">· Starter kit</div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;border-top:0.5px solid #EAE2D4;padding-top:8px;">
+            <div style="font-size:13px;font-weight:500;color:#1C2B0F;">₱385</div>
+            <button style="background:#EAF3DC;color:#2D5A1B;border:none;border-radius:8px;padding:5px 12px;font-size:11px;font-weight:500;cursor:pointer;">Reorder</button>
+          </div>
+        </div>
+        <div class="card" style="padding:11px 12px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+            <div><div style="font-size:12px;font-weight:500;color:#1C2B0F;">Order #ECO-2025-031</div><div style="font-size:10px;color:#9A9080;margin-top:1px;">Apr 30, 2025</div></div>
+            <span class="tag" style="background:#F0EBE1;color:#6B6558;border:0.5px solid #DDD5C4;font-size:9px;">Completed</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:3px;margin-bottom:9px;">
+            <div style="font-size:11px;color:#6B6558;">· Small mailer, 25 pcs</div>
+            <div style="font-size:11px;color:#6B6558;">· Honeycomb wrap, 2m</div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;border-top:0.5px solid #EAE2D4;padding-top:8px;">
+            <div style="font-size:13px;font-weight:500;color:#1C2B0F;">₱205</div>
+            <button style="background:#EAF3DC;color:#2D5A1B;border:none;border-radius:8px;padding:5px 12px;font-size:11px;font-weight:500;cursor:pointer;">Reorder</button>
+          </div>
+        </div>
+        <div class="card" style="padding:11px 12px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+            <div><div style="font-size:12px;font-weight:500;color:#1C2B0F;">Order #ECO-2025-018</div><div style="font-size:10px;color:#9A9080;margin-top:1px;">Apr 10, 2025</div></div>
+            <span class="tag" style="background:#F0EBE1;color:#6B6558;border:0.5px solid #DDD5C4;font-size:9px;">Completed</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:3px;margin-bottom:9px;">
+            <div style="font-size:11px;color:#6B6558;">· Starter kit</div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;border-top:0.5px solid #EAE2D4;padding-top:8px;">
+            <div style="font-size:13px;font-weight:500;color:#1C2B0F;">₱250</div>
+            <button style="background:#EAF3DC;color:#2D5A1B;border:none;border-radius:8px;padding:5px 12px;font-size:11px;font-weight:500;cursor:pointer;">Reorder</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <nav class="nav">
+      <button class="ni"><i class="ti ti-home" aria-hidden="true"></i><span>Home</span></button>
+      <button class="ni"><i class="ti ti-grid" aria-hidden="true"></i><span>Shop</span></button>
+      <button class="ni"><i class="ti ti-shopping-cart" aria-hidden="true"></i><span>Cart</span></button>
+      <button class="ni on"><i class="ti ti-message" aria-hidden="true"></i><span>Chat</span></button>
+    </nav>
+  </div>
+
+  <!-- CHAT / INQUIRY -->
+  <div class="screen" id="s-chat">
+    <div class="topbar">
+      <button class="back"><i class="ti ti-arrow-left" aria-hidden="true"></i></button>
+      <span class="topbar-title">Ask us anything</span>
+      <span></span>
+    </div>
+    <div style="flex:1;padding:10px 14px;overflow:hidden;">
+      <div style="background:#2D5A1B;border-radius:14px;padding:14px;margin-bottom:12px;display:flex;gap:10px;align-items:flex-start;">
+        <div style="width:34px;height:34px;background:#3D7028;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="ti ti-leaf" aria-hidden="true" style="font-size:16px;color:#C0E090;"></i></div>
+        <div>
+          <div style="font-size:12px;font-weight:500;color:#fff;margin-bottom:3px;">EcoPack Urdaneta</div>
+          <div style="font-size:11px;color:#B0D090;line-height:1.5;">Hi! Ask us anything about sizing, eco-certifications, or bulk orders. We reply via Facebook Messenger — usually within a few hours.</div>
+        </div>
+      </div>
+      <div class="sec-t">Quick questions</div>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;">
+        <button class="btn-outline" style="justify-content:flex-start;text-align:left;font-size:11px;color:#1C2B0F;"><i class="ti ti-ruler" aria-hidden="true" style="color:#2D5A1B;"></i>What size mailer fits a t-shirt?</button>
+        <button class="btn-outline" style="justify-content:flex-start;text-align:left;font-size:11px;color:#1C2B0F;"><i class="ti ti-package" aria-hidden="true" style="color:#2D5A1B;"></i>Do you do bulk orders over 500 pcs?</button>
+        <button class="btn-outline" style="justify-content:flex-start;text-align:left;font-size:11px;color:#1C2B0F;"><i class="ti ti-stamp" aria-hidden="true" style="color:#2D5A1B;"></i>Can I get my logo stamped on bags?</button>
+        <button class="btn-outline" style="justify-content:flex-start;text-align:left;font-size:11px;color:#1C2B0F;"><i class="ti ti-certificate" aria-hidden="true" style="color:#2D5A1B;"></i>Can I see the TÜV Austria certificate?</button>
+      </div>
+      <div class="sec-t">Send a message</div>
+      <div style="background:#fff;border:0.5px solid #DDD5C4;border-radius:12px;padding:10px 12px;">
+        <div class="field"><label>Your question</label><textarea placeholder="e.g. Do you deliver to Villasis? What's the best mailer for clothing?"></textarea></div>
+        <div class="field" style="margin-bottom:0;"><label>Your name (optional)</label><input type="text" placeholder="e.g. Marga"></div>
+      </div>
+      <div style="margin-top:10px;"><button class="btn-solid"><i class="ti ti-brand-facebook" aria-hidden="true"></i>Send via Facebook Messenger</button></div>
+    </div>
+    <nav class="nav">
+      <button class="ni"><i class="ti ti-home" aria-hidden="true"></i><span>Home</span></button>
+      <button class="ni"><i class="ti ti-grid" aria-hidden="true"></i><span>Shop</span></button>
+      <button class="ni"><i class="ti ti-shopping-cart" aria-hidden="true"></i><span>Cart</span></button>
+      <button class="ni on"><i class="ti ti-message" aria-hidden="true"></i><span>Chat</span></button>
+    </nav>
+  </div>
+
+  <!-- CUSTOM STAMPING -->
+  <div class="screen" id="s-stamp">
+    <div class="topbar">
+      <button class="back"><i class="ti ti-arrow-left" aria-hidden="true"></i></button>
+      <span class="topbar-title">Custom eco-stamping</span>
+      <span></span>
+    </div>
+    <div style="flex:1;padding:10px 14px;overflow:hidden;">
+      <div class="hero-sm" style="margin:0 0 12px;">
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;">
+          <i class="ti ti-pencil" aria-hidden="true" style="font-size:18px;color:#C0E090;"></i>
+          <div style="font-size:14px;font-weight:500;color:#fff;">Get your logo on every package</div>
+        </div>
+        <div style="font-size:11px;color:#B0D090;line-height:1.5;">Hand-stamped using soy-based eco-ink. No MOQ. Starting at <strong style="font-weight:500;color:#fff;">₱5/piece</strong> stamping fee.</div>
+      </div>
+      <div class="sec-t">How it works</div>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;">
+        <div style="display:flex;gap:10px;align-items:flex-start;">
+          <div style="width:22px;height:22px;background:#2D5A1B;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;font-weight:500;color:#fff;">1</div>
+          <div style="font-size:11px;color:#1C2B0F;line-height:1.5;padding-top:2px;">Upload your logo (PNG or JPG, black &amp; white preferred)</div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start;">
+          <div style="width:22px;height:22px;background:#2D5A1B;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;font-weight:500;color:#fff;">2</div>
+          <div style="font-size:11px;color:#1C2B0F;line-height:1.5;padding-top:2px;">We carve a custom rubber stamp (one-time ₱150 fee)</div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start;">
+          <div style="width:22px;height:22px;background:#2D5A1B;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;font-weight:500;color:#fff;">3</div>
+          <div style="font-size:11px;color:#1C2B0F;line-height:1.5;padding-top:2px;">All future orders stamped at ₱5/piece — no reprints or minimums</div>
+        </div>
+      </div>
+      <div class="card" style="padding:11px 12px;margin-bottom:10px;">
+        <div class="field"><label>Shop / brand name</label><input type="text" placeholder="e.g. Marga's Thrift"></div>
+        <div class="field">
+          <label>Logo upload</label>
+          <div style="background:#F0EBE1;border:1px dashed #C8C0B0;border-radius:8px;padding:16px;text-align:center;cursor:pointer;">
+            <i class="ti ti-upload" aria-hidden="true" style="font-size:20px;color:#9A9080;display:block;margin-bottom:5px;"></i>
+            <div style="font-size:11px;color:#6B6558;">Tap to upload PNG or JPG</div>
+            <div style="font-size:10px;color:#9A9080;margin-top:2px;">Max 5MB · Black &amp; white preferred</div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Which products to stamp?</label>
+          <select><option>Medium mailer 26×33cm</option><option>Small mailer 20×28cm</option><option>Kraft bag — small</option><option>All products</option></select>
+        </div>
+        <div class="field" style="margin-bottom:0;"><label>Special instructions (optional)</label><textarea placeholder="e.g. Place stamp centered at the top of the mailer"></textarea></div>
+      </div>
+      <div style="background:#EAF3DC;border-radius:10px;padding:9px 12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+        <div style="font-size:11px;color:#2D5A1B;">Stamp carving (one-time)</div>
+        <div style="font-size:13px;font-weight:500;color:#1C2B0F;">₱150</div>
+      </div>
+      <button class="btn-solid"><i class="ti ti-send" aria-hidden="true"></i>Submit stamping request</button>
+    </div>
+    <nav class="nav">
+      <button class="ni"><i class="ti ti-home" aria-hidden="true"></i><span>Home</span></button>
+      <button class="ni on"><i class="ti ti-grid" aria-hidden="true"></i><span>Shop</span></button>
+      <button class="ni"><i class="ti ti-shopping-cart" aria-hidden="true"></i><span>Cart</span></button>
+      <button class="ni"><i class="ti ti-message" aria-hidden="true"></i><span>Chat</span></button>
+    </nav>
+  </div>
+
+  <!-- ECO INFO -->
+  <div class="screen" id="s-ecoinfo">
+    <div class="topbar">
+      <button class="back"><i class="ti ti-arrow-left" aria-hidden="true"></i></button>
+      <span class="topbar-title">Our eco impact</span>
+      <span></span>
+    </div>
+    <div style="flex:1;padding:10px 14px;overflow:hidden;">
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:12px;">
+        <div style="background:#EAF3DC;border-radius:12px;padding:12px;text-align:center;">
+          <div style="font-size:22px;font-weight:500;color:#2D5A1B;">1,200+</div>
+          <div style="font-size:10px;color:#5A8A3A;margin-top:3px;line-height:1.4;">plastic mailers replaced this semester</div>
+        </div>
+        <div style="background:#EAF3DC;border-radius:12px;padding:12px;text-align:center;">
+          <div style="font-size:22px;font-weight:500;color:#2D5A1B;">50+</div>
+          <div style="font-size:10px;color:#5A8A3A;margin-top:3px;line-height:1.4;">PSU sellers switched to eco-packaging</div>
+        </div>
+        <div style="background:#EAF3DC;border-radius:12px;padding:12px;text-align:center;">
+          <div style="font-size:22px;font-weight:500;color:#2D5A1B;">0 kg</div>
+          <div style="font-size:10px;color:#5A8A3A;margin-top:3px;line-height:1.4;">microplastics from our mailers</div>
+        </div>
+        <div style="background:#FEF0E0;border-radius:12px;padding:12px;text-align:center;">
+          <div style="font-size:22px;font-weight:500;color:#C4680A;">2030</div>
+          <div style="font-size:10px;color:#A46030;margin-top:3px;line-height:1.4;">target: zero plastic in N. Luzon e-commerce</div>
+        </div>
+      </div>
+      <div class="sec-t">Our materials</div>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;">
+        <div class="card" style="padding:10px 12px;display:flex;gap:10px;">
+          <div style="width:32px;height:32px;background:#EAF3DC;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="ti ti-leaf" aria-hidden="true" style="font-size:16px;color:#2D5A1B;"></i></div>
+          <div><div style="font-size:11px;font-weight:500;color:#1C2B0F;margin-bottom:2px;">PBAT + cornstarch mailers</div><div style="font-size:10px;color:#6B6558;line-height:1.4;">Plant-based bioplastic. Fully home compostable within 180 days. Certified TÜV Austria OK Compost.</div></div>
+        </div>
+        <div class="card" style="padding:10px 12px;display:flex;gap:10px;">
+          <div style="width:32px;height:32px;background:#EAF3DC;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="ti ti-trees" aria-hidden="true" style="font-size:16px;color:#2D5A1B;"></i></div>
+          <div><div style="font-size:11px;font-weight:500;color:#1C2B0F;margin-bottom:2px;">FSC-certified kraft paper</div><div style="font-size:10px;color:#6B6558;line-height:1.4;">Sourced from responsibly managed forests. Biodegrades naturally and is recyclable.</div></div>
+        </div>
+        <div class="card" style="padding:10px 12px;display:flex;gap:10px;">
+          <div style="width:32px;height:32px;background:#EAF3DC;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="ti ti-circles-relation" aria-hidden="true" style="font-size:16px;color:#2D5A1B;"></i></div>
+          <div><div style="font-size:11px;font-weight:500;color:#1C2B0F;margin-bottom:2px;">Recycled kraft honeycomb wrap</div><div style="font-size:10px;color:#6B6558;line-height:1.4;">Made from recycled paper. Provides cushioning without any plastic — fully curbside recyclable.</div></div>
+        </div>
+      </div>
+      <div style="background:#2D5A1B;border-radius:12px;padding:12px 14px;display:flex;gap:8px;align-items:flex-start;">
+        <i class="ti ti-quote" aria-hidden="true" style="font-size:16px;color:#A0C880;flex-shrink:0;margin-top:1px;"></i>
+        <div style="font-size:11px;color:#C0E090;line-height:1.6;font-style:italic;">We only source materials with internationally recognized certifications. We refuse to sell oxo-degradable plastics masquerading as eco-friendly.</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <button class="ni"><i class="ti ti-home" aria-hidden="true"></i><span>Home</span></button>
+      <button class="ni"><i class="ti ti-grid" aria-hidden="true"></i><span>Shop</span></button>
+      <button class="ni"><i class="ti ti-shopping-cart" aria-hidden="true"></i><span>Cart</span></button>
+      <button class="ni on"><i class="ti ti-message" aria-hidden="true"></i><span>Chat</span></button>
+    </nav>
+  </div>
+
+</div>
+</div>
+
+<script>
+function go(s){
+  document.querySelectorAll('.screen').forEach(function(e){e.classList.remove('active');});
+  document.getElementById('s-'+s).classList.add('active');
+  document.querySelectorAll('.sn-btn').forEach(function(b,i){
+    b.classList.toggle('on',b.getAttribute('onclick').indexOf("'"+s+"'")>-1);
+  });
+}
+var faqOpen={};
+function toggleFaq(n){
+  var body=document.getElementById('faq'+n+'-body');
+  var ic=document.getElementById('faq'+n+'-ic');
+  faqOpen[n]=!faqOpen[n];
+  body.style.display=faqOpen[n]?'block':'none';
+  ic.style.transform=faqOpen[n]?'rotate(180deg)':'rotate(0)';
+}
+function selDel(v){
+  var campus=document.getElementById('del-campus');
+  var rider=document.getElementById('del-rider');
+  var ci=document.getElementById('campus-info');
+  var ri=document.getElementById('rider-info');
+  if(v==='campus'){
+    campus.style.border='1.5px solid #2D5A1B';rider.style.border='0.5px solid #DDD5C4';
+    ci.style.display='flex';ri.style.display='none';
+    rider.querySelector('i').style.color='#9A9080';
+    campus.querySelector('i').style.color='#2D5A1B';
+  } else {
+    rider.style.border='1.5px solid #2D5A1B';campus.style.border='0.5px solid #DDD5C4';
+    ri.style.display='block';ci.style.display='none';
+    campus.querySelector('i').style.color='#9A9080';
+    rider.querySelector('i').style.color='#2D5A1B';
+  }
+}
+function selPay(v){
+  ['gcash','maya','cod'].forEach(function(p){
+    var el=document.getElementById('pay-'+p);
+    var ic=document.getElementById('chk-'+p);
+    var on=p===v;
+    el.style.border=on?'1.5px solid #2D5A1B':'0.5px solid #DDD5C4';
+    ic.className=on?'ti ti-circle-check':'ti ti-circle';
+    ic.style.color=on?'#2D5A1B':'#DDD5C4';
+  });
+}
+</script>
